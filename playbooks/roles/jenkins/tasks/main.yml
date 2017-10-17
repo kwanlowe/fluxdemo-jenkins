@@ -1,0 +1,11 @@
+- name: "Install Jenkins repository"
+  include: setup_repo.yml
+- name: "Install baseline packages"
+  include: packages.yml
+- name: "Enable Jenkins service"
+  include: services.yml
+#- name: "Output admin password"
+#  include: first_run.yml
+#  tags: jenkins_first_run
+
+

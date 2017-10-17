@@ -1,0 +1,9 @@
+- name: "Install packages"
+  yum:
+     name: "{{ item }}"
+     state: present
+  become: true
+  with_items:
+    - "java"
+    - "jenkins"
+

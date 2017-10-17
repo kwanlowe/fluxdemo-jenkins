@@ -1,0 +1,7 @@
+- shell: cat /var/lib/jenkins/secrets/initialAdminPassword
+  register: result
+  become: true
+
+- name: "Output admin password"
+  debug:
+    msg: "Admin password is {{ result.stdout }}"

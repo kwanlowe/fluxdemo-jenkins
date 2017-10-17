@@ -1,0 +1,15 @@
+- name: "Copy the repo file"
+  copy:
+    src: "jenkins.repo"
+    dest: "/etc/yum.repos.d/jenkins.repo"
+    owner: root
+    group: root
+    mode: 0644
+  become: true
+
+- name: "Install Jenkins key"
+  rpm_key:
+    state: present
+    key: "https://jenkins-ci.org/redhat/jenkins-ci.org.key"
+  become: true
+

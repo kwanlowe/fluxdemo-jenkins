@@ -1,0 +1,20 @@
+SHELL := /bin/bash 
+IPADDRESS=
+
+clean:
+	rm -f playbooks/*.retry
+
+inventory:
+	sh -c "./inventory/gce_inventory.py --list"
+	
+fluxdemo-jenkins:
+	ansible-playbook playbooks/fluxdemo-jenkins.yml --key-file=~/.ssh/fluxdemo -u fluxdemo -e "appcode=Jenkins"
+
+jenkins-tunnel:
+	ssh -fN -i ~/.ssh/fluxdemo -L 8080:localhost:8080 fluxdemo@$(IPADDRESS)
+
+get-password:
+	ssh -i ~/.ssh/fluxdemo fluxdemo@$(IPADDRESS) sudo cat /var/lib/jenkins/secrets/initialAdminPassword
+
+install-gcc:
+	ansible jenkins -b -m yum -a "name=gcc state=installed"
